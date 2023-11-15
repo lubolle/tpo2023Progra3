@@ -1,6 +1,5 @@
 package tpo2023BolleFran;
 import java.util.*;
-import java.util.List;
 
 public class Graph {
     private Map<Integer, Node> nodes;
@@ -23,6 +22,11 @@ public class Graph {
 
     public Node getNode(int node) {
         return nodes.get(node);
+    }
+
+
+    public Collection<Node> getNodes() {
+        return nodes.values();
     }
 }
 
