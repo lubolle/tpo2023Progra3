@@ -30,7 +30,7 @@ public class Main {
                     int annualMaintenanceCost = Integer.parseInt(parts[2]);
                     Node node = graph.getNode(cDistribucion);//busco el centro de distribucion
                     if (node != null) {
-                    	node.setClientNumber(cDistribucion);
+                    	node.setnodeNumber(cDistribucion);
                         node.setCostToSend(costToSend);//asigno el costo para enviar al puerto
                         node.setAnnualMaintenanceCost(annualMaintenanceCost);//asigno costo de mantenimiento
                     }
@@ -39,7 +39,7 @@ public class Main {
                     int annualProductionVolume = Integer.parseInt(parts[1]);
                     Node node = graph.getNode(client);
                     if (node != null) {
-                        node.setClientNumber(client);
+                        node.setnodeNumber(client);
                         node.setAnnualProductionVolume(annualProductionVolume);
                     }
                 }
@@ -62,38 +62,35 @@ public class Main {
             e.printStackTrace();
         }
         
-        // Ciclo for para recorrer todos los nodos del grafo
-        for (Node node : graph.getNodes()) {
-            int nodeId = node.getClientNumber();
+//	        // Ciclo for para recorrer todos los nodos del grafo
+//	        for (Node node : graph.getNodes()) {
+//	            int nodeId = node.getnodeNumber();
+//	
+//	            // Imprimir información del nodo
+//	            System.out.println("Nodo " + nodeId + ":");
+//	            System.out.println("Vecinos:");
+//	
+//	            // Imprimir información de los vecinos del nodo
+//	            List<Edge> neighbors = graph.getNeighbors(nodeId);
+//	            for (Edge neighbor : neighbors) {
+//	                int neighborId = neighbor.getDestination();
+//	                int cost = neighbor.getCost();
+//	                System.out.println("  Vecino: " + neighborId + ", Costo: " + cost);
+//	            }
+//	            if(nodeId<=7) {
+//	            	// Imprimir información adicional del nodo
+//	                System.out.println("  Costo de Envío al puerto: " + node.getCostToSend());
+//	                System.out.println("  Costo Anual de Mantenimiento: " + node.getAnnualMaintenanceCost());
+//	                System.out.println();  // Separador entre nodos
+//	            }
+//	            else {
+//	            	System.out.println("  Volumen de Producción Anual: " + node.getAnnualProductionVolume());
+//	                System.out.println();  // Separador entre nodos
+//	            }
+//	        }
+        Dijkstra dijk = new Dijkstra();
+        dijk.calculateShortestPaths(graph, 3);
 
-            // Imprimir información del nodo
-            System.out.println("Nodo " + nodeId + ":");
-            System.out.println("Vecinos:");
-
-            // Imprimir información de los vecinos del nodo
-            List<Edge> neighbors = graph.getNeighbors(nodeId);
-            for (Edge neighbor : neighbors) {
-                int neighborId = neighbor.getDestination();
-                int cost = neighbor.getCost();
-                System.out.println("  Vecino: " + neighborId + ", Costo: " + cost);
-            }
-            if(nodeId<=7) {
-            	// Imprimir información adicional del nodo
-                System.out.println("  Costo de Envío al puerto: " + node.getCostToSend());
-                System.out.println("  Costo Anual de Mantenimiento: " + node.getAnnualMaintenanceCost());
-                System.out.println();  // Separador entre nodos
-            }
-            else {
-            	System.out.println("  Volumen de Producción Anual: " + node.getAnnualProductionVolume());
-                System.out.println();  // Separador entre nodos
-
-            }
-                
-            	
-
-            
-
-        }
     }
 }
 
