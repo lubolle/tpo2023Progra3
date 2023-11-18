@@ -2,7 +2,7 @@ package tpo2023BolleFran;
 import java.util.*;
 
 public class Dijkstra {
-    public void calculateShortestPaths(Graph graph, int source) {
+    public static void calculateShortestPaths(Graph graph, int source) {    	
         Map<Integer, Integer> distances = new HashMap<>();
         PriorityQueue<NodeDistance> pq = new PriorityQueue<>(Comparator.comparingInt(NodeDistance::getDistance));
 
@@ -21,7 +21,11 @@ public class Dijkstra {
             if (distance > distances.get(current)) {
                 continue;  // Ignora nodos ya procesados con distancias más cortas
             }
-
+            
+            Node currentNode = graph.getNode(current);
+            if(currentNode.getnodeNumber()>=0 && currentNode.getnodeNumber()<=7)//Es solo para guardar la distancia a los centros
+            	currentNode.setShortestPath(source, distance);
+            
             for (Edge neighbor : graph.getNeighbors(current)) {
                 int neighborNode = neighbor.getDestination();
                 int newDistance = distance + neighbor.getCost();
@@ -34,6 +38,7 @@ public class Dijkstra {
         }
 
         // Aquí, distances contiene las distancias mínimas desde el nodo fuente hacia todos los demás nodos
+        // Descomentar esta linea si se quiere ver los caminos cortos de un nodo especifico.
         System.out.println("Distancias mínimas desde el nodo " + source + ":");
         for (Map.Entry<Integer, Integer> entry : distances.entrySet()) {
             System.out.println("Nodo " + entry.getKey() + ": " + entry.getValue());

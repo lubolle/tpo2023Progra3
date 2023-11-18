@@ -88,8 +88,40 @@ public class Main {
 //	                System.out.println();  // Separador entre nodos
 //	            }
 //	        }
-        Dijkstra dijk = new Dijkstra();
-        dijk.calculateShortestPaths(graph, 3);
+        
+//        //Esto es para inicializar el array que guarda los caminos minimos
+    	for (Node node : graph.getNodes()) {
+            node.initializeShortestPaths(graph.getNodes().size());
+        }
+    	
+//    	//Calcula el camino minimo de todos los nodos
+//        for(int i = 0; i<graph.getNodes().size();i++) {
+//        	Dijkstra.calculateShortestPaths(graph, i);
+//        }
+////      Node node = new Node();
+////      for (Node node : graph.getNodes()) {
+////          System.out.println(node.getShortestPath(0));
+////      }
+//
+//        for (Node node : graph.getNodes()) {
+//            int[] shortestPaths = node.getShortestPaths();
+//            System.out.println("Nodo " + node.getnodeNumber() + ":");
+//            for (int i = 0; i < shortestPaths.length; i++) {
+//                System.out.println("Hacia nodo " + i + ": " + shortestPaths[i]);
+//            }
+//        }
+//        
+        
+        int i = 0;
+	      for (Node node : graph.getNodes()) {
+	    	  
+	    	  node.initializeShortestPaths(graph.getNodes().size());
+	    	  if(node.getnodeNumber() <= 7) {
+	    		  Dijkstra.calculateShortestPaths(graph, i);
+	    		  }
+	    	  i++;
+
+	      }
 
     }
 }

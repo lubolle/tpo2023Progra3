@@ -58,10 +58,8 @@ class Node {
     private int annualMaintenanceCost;  // Atributo para el costo anual de mantenimiento
     private int nodeNumber;  // Atributo para el número de cliente o numero de centro
     private int annualProductionVolume;  // Atributo para el volumen de producción anual
-    
     //Atributos para el camino minimo
     private int[] shortestPaths;//Un array para almacenar la longitud del camino mínimo desde este nodo hasta cada otro nodo.
-    private int[] totalCosts;//Un array para almacenar el costo total del camino mínimo desde este nodo hasta cada otro nodo.
 
     public Node() {
         edges = new ArrayList<>();
@@ -109,13 +107,23 @@ class Node {
         return annualProductionVolume;
     }
     
+    public void setShortestPath(int destination, int shortestPath) {
+        shortestPaths[destination] = shortestPath;
+    }
+
+    public int getShortestPath(int destination) {
+        return shortestPaths[destination];
+    }
+    
+    public int [] getShortestPaths(){
+    	return shortestPaths;
+    }
+    
     //Metodos para caminos cortos
     public void initializeShortestPaths(int numNodes) {
         shortestPaths = new int[numNodes];//Ojo aca por que estoy inicializando 57 espacios y solo quiero la distancia a los 7 centros de distribucion
-        totalCosts = new int[numNodes];
         for (int i = 0; i < numNodes; i++) {
             shortestPaths[i] = Integer.MAX_VALUE;
-            totalCosts[i] = 0;
         }
     }
 
