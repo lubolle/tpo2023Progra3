@@ -1,4 +1,4 @@
-package tpo2023BolleFran;
+package tpo2023BolleFranPackage;
 
 public class Edge {
     private int destination;

@@ -1,13 +1,14 @@
-package tpo2023BolleFran;
+package tpo2023BolleFranPackage;
 import java.io.*;
 import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-//Lee el archvio que tiene los nodos y los costos de las aristas
+//Lee el archivo que tiene los nodos y los costos de las aristas
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/Users/lucasbollella/eclipse-workspace/tpo2023BolleFran/src/tpo2023BolleFran/fuentes/rutas.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\franc\\OneDrive\\Documentos\\UADE\\2DO AÑO\\SEGUNDO CUATRIMESTRE\\PROGRA 3\\WEHBE\\TPO\\tpo2023Progra3\\src\\fuentes\\rutas.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -21,7 +22,7 @@ public class Main {
             reader.close();
 
             // Leer el archivo 'clientesYCentros' para actualizar los atributos de los nodos (centros y productores)
-            BufferedReader clientCenterReader = new BufferedReader(new FileReader("/Users/lucasbollella/eclipse-workspace/tpo2023BolleFran/src/tpo2023BolleFran/fuentes/clientesYCentros.txt"));
+            BufferedReader clientCenterReader = new BufferedReader(new FileReader("C:\\Users\\franc\\OneDrive\\Documentos\\UADE\\2DO AÑO\\SEGUNDO CUATRIMESTRE\\PROGRA 3\\WEHBE\\TPO\\tpo2023Progra3\\src\\fuentes\\clientesYCentros.txt"));
             while ((line = clientCenterReader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {//corresponde a centro de distribucion
