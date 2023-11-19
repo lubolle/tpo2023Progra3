@@ -23,8 +23,8 @@ public class Dijkstra {
             }
             
             Node currentNode = graph.getNode(current);
-            if(currentNode.getnodeNumber()>=0 && currentNode.getnodeNumber()<=7)//Es solo para guardar la distancia a los centros
-            	currentNode.setShortestPath(source, distance);
+//            if(currentNode.getnodeNumber()>=0 && currentNode.getnodeNumber()<=7)//Es solo para guardar la distancia a los centros
+            currentNode.setShortestPath(source, distance);
             
             for (Edge neighbor : graph.getNeighbors(current)) {
                 int neighborNode = neighbor.getDestination();
