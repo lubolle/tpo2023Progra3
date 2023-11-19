@@ -54,7 +54,7 @@ class NodeDistance {
 
 class Node {
     private List<Edge> edges;
-    private int costToSend;  // Atributo para el costo de envío
+    private int costToSend;  // Atributo para el costo de envío al puerto
     private int annualMaintenanceCost;  // Atributo para el costo anual de mantenimiento
     private int nodeNumber;  // Atributo para el número de cliente o numero de centro
     private int annualProductionVolume;  // Atributo para el volumen de producción anual
