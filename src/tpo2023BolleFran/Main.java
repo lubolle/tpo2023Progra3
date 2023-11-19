@@ -50,48 +50,9 @@ public class Main {
             }
             clientCenterReader.close();
 
-//            // Ejemplo: obtener los vecinos del nodo 1 y su información adicional
-//            List<Edge> neighborsOfNode1 = graph.getNeighbors(0);
-//            System.out.print("Vecinos");
-//            System.out.println();
-//            for (Edge edge : neighborsOfNode1) {
-//                System.out.println("Nodo: " + edge.getDestination() + ", Costo: " + edge.getCost());
-//            }
-//            Node node1 = graph.getNode(1);
-//            if (node1 != null) {
-//                System.out.println("Costo de Envío: " + node1.getCostToSend());
-//                System.out.println("Costo Anual de Mantenimiento: " + node1.getAnnualMaintenanceCost());
-//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-//	        // Ciclo for para recorrer todos los nodos del grafo
-//	        for (Node node : graph.getNodes()) {
-//	            int nodeId = node.getnodeNumber();
-//	
-//	            // Imprimir información del nodo
-//	            System.out.println("Nodo " + nodeId + ":");
-//	            System.out.println("Vecinos:");
-//	
-//	            // Imprimir información de los vecinos del nodo
-//	            List<Edge> neighbors = graph.getNeighbors(nodeId);
-//	            for (Edge neighbor : neighbors) {
-//	                int neighborId = neighbor.getDestination();
-//	                int cost = neighbor.getCost();
-//	                System.out.println("  Vecino: " + neighborId + ", Costo: " + cost);
-//	            }
-//	            if(nodeId<=7) {
-//	            	// Imprimir información adicional del nodo
-//	                System.out.println("  Costo de Envío al puerto: " + node.getCostToSend());
-//	                System.out.println("  Costo Anual de Mantenimiento: " + node.getAnnualMaintenanceCost());
-//	                System.out.println();  // Separador entre nodos
-//	            }
-//	            else {
-//	            	System.out.println("  Volumen de Producción Anual: " + node.getAnnualProductionVolume());
-//	                System.out.println();  // Separador entre nodos
-//	            }
-//	        }
         
 //        //Esto es para inicializar el array que guarda los caminos minimos
     	for (Node node : graph.getNodes()) {
@@ -110,7 +71,10 @@ public class Main {
         	if(node.getnodeNumber() <= 7) {
         		Dijkstra.calculateShortestPaths(graph, i);
                 for (int j = 1; j <= cantProducers; j++) {
-                    matCostos[i][j] = graph.getNode(7+j).getShortestPath(node.getnodeNumber());
+                	//(cost de transporte al centro + costo del centro al puerto)*prod anual cliente
+                    //matCostos[i][j] = graph.getNode(7+j).getShortestPath(node.getnodeNumber());
+                    matCostos[i][j] = (graph.getNode(7+j).getShortestPath(node.getnodeNumber())+node.getCostToSend())*graph.getNode(7+j).getAnnualProductionVolume();
+
                 }
         		}
         	i++;
