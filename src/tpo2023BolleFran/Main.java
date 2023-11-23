@@ -1,6 +1,5 @@
 package tpo2023BolleFran;
 import java.io.*;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -80,14 +79,6 @@ public class Main {
         	i++;
 	      }
         
-//        //Primero vamos bien groncho a generar la matriz
-        for(i=0; i<=cantDistributor;i++) {
-        	for(int j=0; j<=cantProducers;j++) {
-        		if(j==0) {
-
-        		}
-        	}
-        }
 
     }
 }
