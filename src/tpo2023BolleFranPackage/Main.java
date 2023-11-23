@@ -1,10 +1,16 @@
 package tpo2023BolleFranPackage;
 import java.io.*;
 import java.util.*;
-
+import tpo2023BolleFranPackage.BranchAndBound;
 
 public class Main {
     public static void main(String[] args) {
+    	
+    	BranchAndBound bnb = new BranchAndBound();
+    	
+    	bnb.main(args);
+    	
+    	
         Graph graph = new Graph();
 //Lee el archivo que tiene los nodos y los costos de las aristas
         try {
