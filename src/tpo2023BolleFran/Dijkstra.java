@@ -39,9 +39,9 @@ public class Dijkstra {
 
         // Aquí, distances contiene las distancias mínimas desde el nodo fuente hacia todos los demás nodos
         // Descomentar esta linea si se quiere ver los caminos cortos de un nodo especifico.
-        System.out.println("Distancias mínimas desde el nodo " + source + ":");
-        for (Map.Entry<Integer, Integer> entry : distances.entrySet()) {
-            System.out.println("Nodo " + entry.getKey() + ": " + entry.getValue());
-        }
+//        System.out.println("Distancias mínimas desde el nodo " + source + ":");
+//        for (Map.Entry<Integer, Integer> entry : distances.entrySet()) {
+//            System.out.println("Nodo " + entry.getKey() + ": " + entry.getValue());
+//        }
     }
 }

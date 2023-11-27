@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 public class lcbb {
 
 	  private static int upper;
-	  private static int bestIndex = -1;
 
 	  private static class Node {
 
@@ -86,7 +85,6 @@ public class lcbb {
 	  }
 	  
 	  public static int calRedMax(int[][] M, int[] centros, int newCenter) {
-	        int min;
 	        int max;
 	        int aEval;
 	        int suma = 0;
@@ -176,28 +174,32 @@ public class lcbb {
 		    // Inicializamos la variable upper.
 		    upper = Integer.MAX_VALUE;
 
-		    // Inicializamos la variable bestIndex.
-		    bestIndex = -1;
-		    int centros [] = {0,0,0,0};
+		    int centrosGlobales [] = new int[M.length];
 		    int nivel = 0;
-		    
-		    // Inicializamos la cola de prioridad con el nodo raíz. Se define que el criterio para desencolar es el costo de U.
-		    PriorityQueue<Node> Q = new PriorityQueue<>(Comparator.comparingInt(n -> n.U));
+		   
+		    // Inicializamos la cola de prioridad con el nodo raíz. Se define que el criterio para desencolar es el costo de C.
+		    PriorityQueue<Node> Q = new PriorityQueue<>(Comparator.comparingInt(n -> n.C));
 
 		    //Inicializamos el nodo raiz.
-		    Q.add(new Node(0,nivel,centros,upper,calcularC(M,centros)));
-		    // Inicializamos el array de resultados.
-		    int[] results = new int[M.length];
+		    Q.add(new Node(0,nivel,centrosGlobales,upper,calcularC(M,centrosGlobales)));
 
 		    // Mientras la cola no esté vacía...
-		    while (!Q.isEmpty() && bestIndex < max) {
+		    while (!Q.isEmpty()) {
 		      // Extraemos el nodo con menor costo U.
 		      Node n = Q.poll();
+		      System.out.println(n.index);
 
 		      // Si el costo del nodo es menor o igual al del mejor nodo encontrado...
+		      //Los nodos que tengan un U mayor al upper son descartados automaticamente
 		      if (n.U <= upper) {
+
 		    	  
 		    	  upper = n.U; //Actualizamos la referencia de upper
+		    	  
+		    	  if(n.C==n.U) {
+		    		  return n.centros;
+		    	  }
+		    		  
 		    	  //Calculamos RedMin y RedMax
 		    	  int redMin = calRedMin(M,n.centros,n.nivel);
 		    	  int redMax = calRedMax(M,n.centros,n.nivel);
@@ -205,32 +207,61 @@ public class lcbb {
 		    	  
 		    	  if(costMantenimiento<redMin) {
 		    		  //El costo de mantenimiento es menor que red min
-		    		  centros[nivel]=1;
+		    		  centrosGlobales[n.nivel]=1;
+		    		  n.centros[n.nivel]=1;
 		    		  nivel= nivel +1;
-		    		  Q.add(new Node(n.index +1, nivel,centros,calcularU(M,centros),calcularC(M,centros)));
+		    		  Q.add(new Node(n.index +1, nivel,n.centros,calcularU(M,n.centros),calcularC(M,n.centros)));
+		    		  System.out.println("Se construyo uno");
 
 		    	  }
 		    	  else if(redMin<costMantenimiento && costMantenimiento<redMax) {
 		    		  //No se puede podar nada, tengo que seguir analizando, el costo de mantenimiento esta en el medio de las cotas
 		    		  
 		    		  
-		    		  int[] centrosCopia1= Arrays.copyOf(centros,centros.length);
+		    		  int[] centrosCopia1= Arrays.copyOf(centrosGlobales,centrosGlobales.length);
 		    		  centrosCopia1[nivel]=1;
 		    		  Q.add(new Node(n.index +1, nivel+1,centrosCopia1,calcularU(M,centrosCopia1),calcularC(M,centrosCopia1)));
 		    		  
-		    		  int[] centrosCopia2 = Arrays.copyOf(centros,centros.length);
+		    		  int[] centrosCopia2 = Arrays.copyOf(centrosGlobales,centrosGlobales.length);
 		    		  centrosCopia2[nivel]=-1;
 		    		  Q.add(new Node(n.index +1, nivel+1,centrosCopia2,calcularU(M,centrosCopia2),calcularC(M,centrosCopia2)));
 
-		    		  nivel= nivel +1;
 		    	  }
-		    	  else {//Ya se que no lo voy a construir
-		    		  centros[nivel]=-1;
+		    	  else if(n.nivel<max) {//Ya se que no lo voy a construir
+		    		  centrosGlobales[n.nivel]=-1;
+		    		  n.centros[n.nivel]=-1;
 		    		  nivel= nivel +1;
-		    		  Q.add(new Node(n.index +1, nivel,centros,calcularU(M,centros),calcularC(M,centros)));
-		    		  
-		    	  }
+		    		  Q.add(new Node(n.index +1, nivel,n.centros,calcularU(M,n.centros),calcularC(M,n.centros)));
+		    		  System.out.println("Se rechazo uno");
 
+		    	  }
+		    	  
+		    	  
+		    		  
+		    	  
+		    	
+//		        // ...lo exploramos.
+//		        for (int i = 0; i < M.length; i++) {
+//		          if (M[n.index][i] > 0) {
+//		            // Calculamos el indicador c.
+//		            int c = upper - n.U;
+//
+//		            // Si el indicador c es menor o igual a cero, descartamos la rama.
+//		            if (c <= 0) {
+//		              continue;
+//		            }
+//
+//		            // Calculamos el upper bound del hijo.
+//		            int U = Math.min(n.U + M[n.index][i], upper);
+//
+//		            // Si el upper bound del hijo es menor que el upper bound global, actualizamos el upper bound global.
+//		            if (U < upper) {
+//		              upper = U;
+//		            }
+
+		            // Generamos los hijos del nodo.
+//		            Q.add(new Node(n.index + 1, n.cost + M[n.index][i], n.buildCost + M[n.index][i], U, c));
+//		            Q.add(new Node(n.index + 1, n.cost, n.buildCost, U, n.C));
 
 		            // Actualizamos el resultado del nodo.
 //		            if (U <= n.C) {
@@ -242,9 +273,11 @@ public class lcbb {
 //		            }
 		          }
 		        }
+//		      }
+//		    }
 
 		    // Devolvemos el array de resultados.
-		    return results;
+		    return centrosGlobales;
 		  }
 
 

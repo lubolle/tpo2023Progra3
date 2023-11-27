@@ -80,6 +80,13 @@ public class Main {
 	      }
         
 
+	    int resultado []=lcbb.lccb2(matCostos,matCostos.length);
+	    System.out.println("Hola");
+//	    for(int z = 0 ; z<resultado.length ; z++){
+//	    	System.out.println(resultado[z]);
+//	    }
+//        
+
     }
 }
 
